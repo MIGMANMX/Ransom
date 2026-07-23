@@ -1,0 +1,5 @@
+enabled: false
+code: "VC"
+name: "San Vicente y las Granadinas"
+webhook_url_env: "TEAMS_WEBHOOK_VC"
+max_items_per_run: 20

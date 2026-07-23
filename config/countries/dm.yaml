@@ -1,0 +1,5 @@
+enabled: false
+code: "DM"
+name: "Dominica"
+webhook_url_env: "TEAMS_WEBHOOK_DM"
+max_items_per_run: 20

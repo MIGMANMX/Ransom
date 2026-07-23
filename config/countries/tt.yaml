@@ -1,0 +1,5 @@
+enabled: false
+code: "TT"
+name: "Trinidad y Tobago"
+webhook_url_env: "TEAMS_WEBHOOK_TT"
+max_items_per_run: 20

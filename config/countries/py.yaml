@@ -1,0 +1,5 @@
+enabled: false
+code: "PY"
+name: "Paraguay"
+webhook_url_env: "TEAMS_WEBHOOK_PY"
+max_items_per_run: 20

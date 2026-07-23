@@ -1,0 +1,5 @@
+enabled: false
+code: "AG"
+name: "Antigua y Barbuda"
+webhook_url_env: "TEAMS_WEBHOOK_AG"
+max_items_per_run: 20

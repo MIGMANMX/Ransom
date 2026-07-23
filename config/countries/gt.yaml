@@ -1,0 +1,5 @@
+enabled: false
+code: "GT"
+name: "Guatemala"
+webhook_url_env: "TEAMS_WEBHOOK_GT"
+max_items_per_run: 20

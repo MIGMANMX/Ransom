@@ -1,0 +1,5 @@
+enabled: false
+code: "BZ"
+name: "Belice"
+webhook_url_env: "TEAMS_WEBHOOK_BZ"
+max_items_per_run: 20

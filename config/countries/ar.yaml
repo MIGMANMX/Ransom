@@ -1,0 +1,5 @@
+enabled: false
+code: "AR"
+name: "Argentina"
+webhook_url_env: "TEAMS_WEBHOOK_AR"
+max_items_per_run: 20

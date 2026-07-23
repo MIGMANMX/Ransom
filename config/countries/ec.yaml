@@ -1,0 +1,5 @@
+enabled: false
+code: "EC"
+name: "Ecuador"
+webhook_url_env: "TEAMS_WEBHOOK_EC"
+max_items_per_run: 20

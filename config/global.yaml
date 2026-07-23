@@ -1,0 +1,5 @@
+# Feed global: usa /victims/recent (las 100 víctimas más recientes a nivel mundial).
+enabled: true
+name: "Global"
+webhook_url_env: "TEAMS_WEBHOOK_GLOBAL"
+max_items_per_run: 20

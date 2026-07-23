@@ -1,0 +1,89 @@
+# Configuración general del monitor. No contiene secretos: la API key y los
+# webhooks se leen de variables de entorno (ver .env.example).
+
+api:
+  base_url: "https://api-pro.ransomware.live"
+  api_key_env: "RANSOMWARE_LIVE_API_KEY"
+  timeout_seconds: 20
+  user_agent: "LatamRansomMonitor/1.0 (+contacto: migman.mx@gmail.com)"
+
+# Controla qué tan "discretos" somos con la API: peticiones secuenciales
+# (nunca en paralelo), con espera aleatoria entre cada una y backoff
+# exponencial con jitter ante 429/5xx.
+network:
+  min_delay_seconds: 3.0
+  max_delay_seconds: 8.0
+  max_retries: 5
+  backoff_base_seconds: 5.0
+  backoff_max_seconds: 120.0
+
+# Pausa entre mensajes enviados a Teams (por si un feed genera varias tarjetas).
+teams:
+  min_delay_seconds: 1.0
+  max_delay_seconds: 3.0
+  timeout_seconds: 15
+
+# Enriquecimiento opcional con /group/<nombre>: descripción del grupo,
+# TTPs de MITRE ATT&CK, CVEs conocidas que explota, si hay negociaciones o
+# notas de rescate filtradas. Se cachea en disco (group_cache_file) porque
+# muchas víctimas comparten grupo — así casi nunca se repite la consulta.
+enrichment:
+  group_intel: true
+  group_cache_file: "state/group_cache.json"
+  group_cache_ttl_hours: 24
+
+# Orden en el que se procesan y publican los feeds de país (los archivos en
+# config/countries/ se cargan alfabéticamente por nombre de archivo; esta
+# lista define el orden real que se usa). Cualquier país habilitado que no
+# aparezca aquí se procesa al final, en orden alfabético.
+countries:
+  order:
+    - MX
+    - BZ
+    - CR
+    - SV
+    - GT
+    - HN
+    - NI
+    - PA
+    - AR
+    - BO
+    - BR
+    - CL
+    - CO
+    - EC
+    - GY
+    - PY
+    - PE
+    - SR
+    - UY
+    - VE
+    - AG
+    - BS
+    - BB
+    - CU
+    - DM
+    - DO
+    - GD
+    - HT
+    - JM
+    - KN
+    - LC
+    - VC
+    - TT
+
+run:
+  state_file: "state/state.json"
+  log_file: "logs/ransom_monitor.log"
+  log_level: "INFO"
+  # En la primera ejecución de un feed (sin estado previo) no se hace backfill
+  # de todo el histórico: solo se publican las N víctimas más recientes para
+  # fijar la línea base, evitando inundar el canal de Teams.
+  initial_backfill: 5
+  # Red de seguridad del checkpoint: pase lo que pase (primera corrida,
+  # checkpoint perdido, script caído varias horas), nunca se miran víctimas
+  # con 'discovered' más viejo que esta ventana. En operación normal (script
+  # cada 10 min) esto no aplica casi nunca — el checkpoint por feed en
+  # state.json es lo que realmente limita a "solo lo nuevo desde la última
+  # corrida".
+  max_lookback_hours: 12

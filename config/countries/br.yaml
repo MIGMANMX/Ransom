@@ -1,0 +1,5 @@
+enabled: false
+code: "BR"
+name: "Brasil"
+webhook_url_env: "TEAMS_WEBHOOK_BR"
+max_items_per_run: 20

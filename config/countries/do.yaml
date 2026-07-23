@@ -1,0 +1,5 @@
+enabled: false
+code: "DO"
+name: "República Dominicana"
+webhook_url_env: "TEAMS_WEBHOOK_DO"
+max_items_per_run: 20

@@ -1,0 +1,5 @@
+enabled: false
+code: "GD"
+name: "Granada"
+webhook_url_env: "TEAMS_WEBHOOK_GD"
+max_items_per_run: 20

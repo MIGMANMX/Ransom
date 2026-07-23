@@ -1,0 +1,5 @@
+enabled: false
+code: "HN"
+name: "Honduras"
+webhook_url_env: "TEAMS_WEBHOOK_HN"
+max_items_per_run: 20

@@ -1,0 +1,5 @@
+enabled: false
+code: "UY"
+name: "Uruguay"
+webhook_url_env: "TEAMS_WEBHOOK_UY"
+max_items_per_run: 20

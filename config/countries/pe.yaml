@@ -1,0 +1,5 @@
+enabled: false
+code: "PE"
+name: "Perú"
+webhook_url_env: "TEAMS_WEBHOOK_PE"
+max_items_per_run: 20

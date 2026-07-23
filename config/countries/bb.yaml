@@ -1,0 +1,5 @@
+enabled: false
+code: "BB"
+name: "Barbados"
+webhook_url_env: "TEAMS_WEBHOOK_BB"
+max_items_per_run: 20

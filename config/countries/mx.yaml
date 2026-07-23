@@ -1,0 +1,5 @@
+enabled: true
+code: "MX"
+name: "México"
+webhook_url_env: "TEAMS_WEBHOOK_MX"
+max_items_per_run: 20

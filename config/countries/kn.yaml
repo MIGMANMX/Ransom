@@ -1,0 +1,5 @@
+enabled: false
+code: "KN"
+name: "San Cristóbal y Nieves"
+webhook_url_env: "TEAMS_WEBHOOK_KN"
+max_items_per_run: 20

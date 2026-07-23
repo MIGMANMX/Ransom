@@ -1,0 +1,5 @@
+enabled: false
+code: "HT"
+name: "Haití"
+webhook_url_env: "TEAMS_WEBHOOK_HT"
+max_items_per_run: 20

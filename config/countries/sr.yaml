@@ -1,0 +1,5 @@
+enabled: false
+code: "SR"
+name: "Surinam"
+webhook_url_env: "TEAMS_WEBHOOK_SR"
+max_items_per_run: 20

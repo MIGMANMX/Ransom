@@ -1,0 +1,5 @@
+enabled: false
+code: "VE"
+name: "Venezuela"
+webhook_url_env: "TEAMS_WEBHOOK_VE"
+max_items_per_run: 20

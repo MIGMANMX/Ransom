@@ -1,0 +1,5 @@
+enabled: false
+code: "JM"
+name: "Jamaica"
+webhook_url_env: "TEAMS_WEBHOOK_JM"
+max_items_per_run: 20
