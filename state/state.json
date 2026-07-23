@@ -1,0 +1,24 @@
+{
+  "global": {
+    "last_discovered": "2026-07-22T20:27:32.915323+00:00",
+    "seen_ids": [
+      "U2FsaWRhIFVuaW9uIFNjaG9vbCBEaXN0cmljdEBxaWxpbg==",
+      "UmVjc2FAcWlsaW4=",
+      "UHJpbWVsaW5lIExvZ2lzdGljc0BxaWxpbg==",
+      "d2luZGlhbS5jb21AQnJhaW5DaXBoZXI=",
+      "UCAmIEEgQ29uc3RydWN0aW9uQHFpbGlu",
+      "WnVuaSBTaG9wcGluZyBDZW50ZXIsIEluYy5AYmxhY2tuZXZhcw==",
+      "Vk5TT0Bub3Zh",
+      "TFIgUmVlZEBrYWlyb3M="
+    ]
+  },
+  "MX": {
+    "last_discovered": "2026-07-17T00:30:15.591118+00:00",
+    "seen_ids": [
+      "U2VkZW1pQHFpbGlu",
+      "YXNpbWFyLmNvbUBkcmFnb25mb3JjZQ==",
+      "TWV0cm8gRGVzaWduIENlbnRlQGRyYWdvbmZvcmNl",
+      "Zm9ybWFzdW5pdmVyc2FsZXMuY29tQGtyeWJpdA=="
+    ]
+  }
+}

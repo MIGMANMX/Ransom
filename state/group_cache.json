@@ -1,0 +1,1454 @@
+{
+  "groups": {
+    "qilin": {
+      "fetched_at": "2026-07-22T19:45:46.690688+00:00",
+      "data": {
+        "client": "milton.ortega@scitum.com.mx",
+        "group": "qilin",
+        "description": "Qilin ransomware was first observed in July of 2022. Qilin Ransomware is written in Golang and supports multiple encryption modes; all of which are controlled by the operator. Qilin actors practice double extortion – demanding payment for a decryptor, as well as for the non-release of stolen data.",
+        "added_date": null,
+        "victims": 2046,
+        "firstseen": "2022-10-08T05:43:10.034028+00:00",
+        "lastseen": "2026-07-22T18:03:05.166718+00:00",
+        "ttps": [
+          {
+            "tactic_name": "Initial Access",
+            "tactic_id": "TA0001",
+            "techniques": [
+              {
+                "technique_name": "Valid Accounts",
+                "technique_id": "T1078",
+                "technique_details": "Compromised credentials used to authenticate via VPN and RDP. Qilin notably steals credentials from Chrome browsers on compromised endpoints before encryption."
+              },
+              {
+                "technique_name": "Exploit Public-Facing Application",
+                "technique_id": "T1190",
+                "technique_details": "Exploitation of vulnerabilities in VPN appliances and remote management tools to gain initial access."
+              },
+              {
+                "technique_name": "Phishing",
+                "technique_id": "T1566",
+                "technique_details": ""
+              },
+              {
+                "technique_name": "Phishing: Spearphishing via Service",
+                "technique_id": "T1566.003",
+                "technique_details": "Qilin affiliates spear-phished MSP administrators via ScreenConnect to gain access to downstream customers. Phishing campaigns using credential-harvesting pages targeting VPN and SSO portals."
+              }
+            ]
+          },
+          {
+            "tactic_name": "Execution",
+            "tactic_id": "TA0002",
+            "techniques": [
+              {
+                "technique_name": "Command and Scripting Interpreter: PowerShell",
+                "technique_id": "T1059.001",
+                "technique_details": "PowerShell scripts used for payload execution, lateral movement, and post-exploitation tasks."
+              },
+              {
+                "technique_name": "Command and Scripting Interpreter: Unix Shell",
+                "technique_id": "T1059.004",
+                "technique_details": "Shell scripts used to execute the Linux/ESXi variant of the Qilin ransomware payload."
+              },
+              {
+                "technique_name": "System Services",
+                "technique_id": "T1569",
+                "technique_details": ""
+              },
+              {
+                "technique_name": "System Services: Service Execution",
+                "technique_id": "T1569.002",
+                "technique_details": ""
+              }
+            ]
+          },
+          {
+            "tactic_name": "Persistence",
+            "tactic_id": "TA0003",
+            "techniques": [
+              {
+                "technique_name": "Boot or Logon Initialization Scripts",
+                "technique_id": "T1037",
+                "technique_details": ""
+              },
+              {
+                "technique_name": "Scheduled Task/Job",
+                "technique_id": "T1053",
+                "technique_details": ""
+              },
+              {
+                "technique_name": "Scheduled Task/Job: Scheduled Task",
+                "technique_id": "T1053.005",
+                "technique_details": "Scheduled tasks created to maintain persistence and execute post-exploitation scripts."
+              },
+              {
+                "technique_name": "Account Manipulation: SSH Authorized Keys",
+                "technique_id": "T1098.004",
+                "technique_details": ""
+              },
+              {
+                "technique_name": "Create Account",
+                "technique_id": "T1136",
+                "technique_details": ""
+              },
+              {
+                "technique_name": "Boot or Logon Autostart Execution",
+                "technique_id": "T1547",
+                "technique_details": ""
+              }
+            ]
+          },
+          {
+            "tactic_name": "Privilege Escalation",
+            "tactic_id": "TA0004",
+            "techniques": [
+              {
+                "technique_name": "Exploitation for Privilege Escalation",
+                "technique_id": "T1068",
+                "technique_details": ""
+              }
+            ]
+          },
+          {
+            "tactic_name": "Defense Evasion",
+            "tactic_id": "TA0005",
+            "techniques": [
+              {
+                "technique_name": "Obfuscated Files or Information",
+                "technique_id": "T1027",
+                "technique_details": "Qilin.B variant (October 2024) introduced enhanced obfuscation and anti-analysis techniques compared to earlier versions."
+              },
+              {
+                "technique_name": "Masquerading: Invalid Code Signature",
+                "technique_id": "T1036.001",
+                "technique_details": ""
+              },
+              {
+                "technique_name": "Access Token Manipulation: Parent PID Spoofing",
+                "technique_id": "T1134.004",
+                "technique_details": ""
+              },
+              {
+                "technique_name": "Exploitation for Defense Evasion",
+                "technique_id": "T1211",
+                "technique_details": ""
+              },
+              {
+                "technique_name": "Execution Guardrails",
+                "technique_id": "T1480",
+                "technique_details": ""
+              },
+              {
+                "technique_name": "Virtualization/Sandbox Evasion: System Checks",
+                "technique_id": "T1497.001",
+                "technique_details": ""
+              },
+              {
+                "technique_name": "Subvert Trust Controls: Code Signing",
+                "technique_id": "T1553.002",
+                "technique_details": ""
+              },
+              {
+                "technique_name": "Disable or Modify Tools",
+                "technique_id": "T1562.001",
+                "technique_details": "Security tools and EDR solutions disabled via batch scripts and Group Policy modifications."
+              },
+              {
+                "technique_name": "Impair Defenses: Disable or Modify System Firewall",
+                "technique_id": "T1562.004",
+                "technique_details": ""
+              },
+              {
+                "technique_name": "Hidden Artifacts",
+                "technique_id": "T1564",
+                "technique_details": ""
+              },
+              {
+                "technique_name": "Hidden Artifacts: Hidden Window",
+                "technique_id": "T1564.003",
+                "technique_details": ""
+              }
+            ]
+          },
+          {
+            "tactic_name": "Credential Access",
+            "tactic_id": "TA0006",
+            "techniques": [
+              {
+                "technique_name": "OS Credential Dumping: LSASS Memory",
+                "technique_id": "T1003.001",
+                "technique_details": "LSASS memory dumped to harvest credentials for lateral movement and privilege escalation."
+              },
+              {
+                "technique_name": "Network Sniffing",
+                "technique_id": "T1040",
+                "technique_details": ""
+              },
+              {
+                "technique_name": "Brute Force: Password Cracking",
+                "technique_id": "T1110.002",
+                "technique_details": ""
+              },
+              {
+                "technique_name": "Credentials from Web Browsers",
+                "technique_id": "T1555.003",
+                "technique_details": "Qilin notably deployed a custom script to steal credentials stored in Google Chrome browsers on all domain-joined machines via Group Policy — a distinctive TTP first observed in the Synnovis NHS attack (June 2024)."
+              }
+            ]
+          },
+          {
+            "tactic_name": "Discovery",
+            "tactic_id": "TA0007",
+            "techniques": [
+              {
+                "technique_name": "Query Registry",
+                "technique_id": "T1012",
+                "technique_details": ""
+              },
+              {
+                "technique_name": "Network Service Discovery",
+                "technique_id": "T1046",
+                "technique_details": "Network scanning used to enumerate hosts and services within the victim environment."
+              },
+              {
+                "technique_name": "System Information Discovery",
+                "technique_id": "T1082",
+                "technique_details": "System information collected to tailor the attack and identify high-value targets."
+              },
+              {
+                "technique_name": "System Location Discovery",
+                "technique_id": "T1614",
+                "technique_details": ""
+              }
+            ]
+          },
+          {
+            "tactic_name": "Lateral Movement",
+            "tactic_id": "TA0008",
+            "techniques": [
+              {
+                "technique_name": "Remote Services",
+                "technique_id": "T1021",
+                "technique_details": ""
+              },
+              {
+                "technique_name": "Remote Services: Remote Desktop Protocol",
+                "technique_id": "T1021.001",
+                "technique_details": "RDP used for lateral movement across victim networks."
+              },
+              {
+                "technique_name": "Remote Services: SMB/Windows Admin Shares",
+                "technique_id": "T1021.002",
+                "technique_details": "SMB used to propagate payloads and move laterally within the network."
+              },
+              {
+                "technique_name": "Remote Services: SSH",
+                "technique_id": "T1021.004",
+                "technique_details": ""
+              },
+              {
+                "technique_name": "Lateral Tool Transfer",
+                "technique_id": "T1570",
+                "technique_details": ""
+              }
+            ]
+          },
+          {
+            "tactic_name": "Collection",
+            "tactic_id": "TA0009",
+            "techniques": [
+              {
+                "technique_name": "Archive Collected Data: Archive via Utility",
+                "technique_id": "T1560.001",
+                "technique_details": "Data compressed and archived prior to exfiltration."
+              },
+              {
+                "technique_name": "Network Device Configuration Dump",
+                "technique_id": "T1602.002",
+                "technique_details": ""
+              }
+            ]
+          },
+          {
+            "tactic_name": "Exfiltration",
+            "tactic_id": "TA0010",
+            "techniques": [
+              {
+                "technique_name": "Exfiltration Over Other Network Medium",
+                "technique_id": "T1011",
+                "technique_details": ""
+              },
+              {
+                "technique_name": "Exfiltration Over Other Network Medium: Exfiltration Over Bluetooth",
+                "technique_id": "T1011.001",
+                "technique_details": ""
+              },
+              {
+                "technique_name": "Exfiltration Over Alternative Protocol: Unencrypted Non-C2 Protocol",
+                "technique_id": "T1048.003",
+                "technique_details": ""
+              },
+              {
+                "technique_name": "Exfiltration Over Web Service: Exfiltration to Cloud Storage",
+                "technique_id": "T1567.002",
+                "technique_details": "Data exfiltrated to cloud storage and actor-controlled servers for double extortion via the Qilin leak site."
+              }
+            ]
+          },
+          {
+            "tactic_name": "Command and Control",
+            "tactic_id": "TA0011",
+            "techniques": [
+              {
+                "technique_name": "Data Obfuscation",
+                "technique_id": "T1001",
+                "technique_details": ""
+              },
+              {
+                "technique_name": "Data Obfuscation: Junk Data",
+                "technique_id": "T1001.001",
+                "technique_details": ""
+              },
+              {
+                "technique_name": "Application Layer Protocol: Web Protocols",
+                "technique_id": "T1071.001",
+                "technique_details": "C2 communication over HTTPS; Tor used for victim portals."
+              },
+              {
+                "technique_name": "Protocol Tunneling",
+                "technique_id": "T1572",
+                "technique_details": ""
+              }
+            ]
+          },
+          {
+            "tactic_name": "Impact",
+            "tactic_id": "TA0040",
+            "techniques": [
+              {
+                "technique_name": "Data Encrypted for Impact",
+                "technique_id": "T1486",
+                "technique_details": "Qilin (formerly Agenda) uses ChaCha20 for file encryption with RSA-4096 for key protection. Originally written in Go, later rewritten in Rust (Qilin.B). Targets Windows, Linux, and VMware ESXi. Notable attack: Synnovis NHS pathology services (June 2024) causing 10,000+ NHS appointment cancellations. Active RaaS with high affiliate revenue share."
+              },
+              {
+                "technique_name": "Inhibit System Recovery",
+                "technique_id": "T1490",
+                "technique_details": "Shadow copies deleted; ESXi snapshots removed to prevent VM recovery."
+              },
+              {
+                "technique_name": "Disk Wipe",
+                "technique_id": "T1561",
+                "technique_details": ""
+              },
+              {
+                "technique_name": "Disk Wipe: Disk Content Wipe",
+                "technique_id": "T1561.001",
+                "technique_details": ""
+              }
+            ]
+          },
+          {
+            "tactic_name": "Resource Development",
+            "tactic_id": "TA0042",
+            "techniques": [
+              {
+                "technique_name": "Develop Capabilities: Malware",
+                "technique_id": "T1587.001",
+                "technique_details": ""
+              }
+            ]
+          },
+          {
+            "tactic_name": "Reconnaissance",
+            "tactic_id": "TA0043",
+            "techniques": [
+              {
+                "technique_name": "Gather Victim Network Information: Network Topology",
+                "technique_id": "T1590.004",
+                "technique_details": ""
+              }
+            ]
+          }
+        ],
+        "vulnerabilities": [],
+        "tools": {
+          "CredentialTheft": [
+            "Mimikatz"
+          ],
+          "DefenseEvasion": [
+            "EDRSandBlast",
+            "PCHunter",
+            "PowerTool",
+            "Toshiba power management driver (BYOVD)",
+            "Updater for Carbon Black’s Cloud Sensor AV (upd.exe)",
+            "YDArk",
+            "Zemana Anti-Rootkit driver"
+          ],
+          "DiscoveryEnum": [
+            "Nmap",
+            "Nping"
+          ],
+          "Exfiltration": [
+            "EasyUpload.io",
+            "MEGA"
+          ],
+          "LOLBAS": [
+            "PowerShell",
+            "PsExec",
+            "WinRM",
+            "fsutil"
+          ],
+          "Networking": [
+            "Proxychains"
+          ],
+          "Offsec": [
+            "Cobalt Strike",
+            "Evilginx",
+            "Kali Linux",
+            "NetExec",
+            "SystemBC",
+            "Tofsee"
+          ],
+          "RMM-Tools": [
+            "NetSupport",
+            "ScreenConnect"
+          ]
+        },
+        "locations": [
+          {
+            "fqdn": "kbsqoivihgdmwczmxkbovk7ss2dcynitwhhfu5yw725dboqo5kthfaad.onion",
+            "title": "DDOS Protection",
+            "slug": "http://kbsqoivihgdmwczmxkbovk7ss2dcynitwhhfu5yw725dboqo5kthfaad.onion",
+            "type": "DLS",
+            "available": false
+          },
+          {
+            "fqdn": "ijzn3sicrcy7guixkzjkib4ukbiilwc3xhnmby4mcbccnsd7j2rekvqd.onion",
+            "title": "Qilin blog",
+            "slug": "http://ijzn3sicrcy7guixkzjkib4ukbiilwc3xhnmby4mcbccnsd7j2rekvqd.onion",
+            "type": "DLS",
+            "available": false
+          },
+          {
+            "fqdn": "ji57fr53anp7wb44tbbnp72qcgbhqywy4jmbncawdcrejj5amuvh3zqd.onion",
+            "title": "Sign In",
+            "slug": "http://ji57fr53anp7wb44tbbnp72qcgbhqywy4jmbncawdcrejj5amuvh3zqd.onion/site/login",
+            "type": "Admin",
+            "available": false
+          },
+          {
+            "fqdn": "ozsxj4hwxub7gio347ac7tyqqozvfioty37skqilzo2oqfs4cw2mgtyd.onion",
+            "title": "Qilin",
+            "slug": "http://ozsxj4hwxub7gio347ac7tyqqozvfioty37skqilzo2oqfs4cw2mgtyd.onion",
+            "type": "DLS",
+            "available": false
+          }
+        ],
+        "has_negotiations": true,
+        "negotiation_count": 2,
+        "has_ransomnote": true,
+        "ransomnotes_count": 3,
+        "url": "https://www.ransomware.live/group/qilin"
+      }
+    },
+    "dragonforce": {
+      "fetched_at": "2026-07-22T19:46:04.877364+00:00",
+      "data": {
+        "client": "milton.ortega@scitum.com.mx",
+        "group": "dragonforce",
+        "description": "DragonForce is a major ransomware-as-a-service operation first observed in August 2023 that launched a formal affiliate program offering 80% revenue share, then rebranded as a \"ransomware cartel\" in 2025, gaining notoriety for high-profile attacks on UK retailers Marks & Spencer, Co-op, and Harrods.",
+        "added_date": null,
+        "victims": 623,
+        "firstseen": "2022-10-20T21:51:27.146973+00:00",
+        "lastseen": "2026-07-22T08:32:05.248915+00:00",
+        "ttps": [
+          {
+            "tactic_name": "Execution",
+            "tactic_id": "TA0002",
+            "techniques": [
+              {
+                "technique_name": "User Execution",
+                "technique_id": "T1204.002",
+                "technique_details": "Executes a malicious file on the victim's system."
+              }
+            ]
+          },
+          {
+            "tactic_name": "Defense Evasion",
+            "tactic_id": "TA0005",
+            "techniques": [
+              {
+                "technique_name": "Indicator Removal: File Deletion",
+                "technique_id": "T1070.004",
+                "technique_details": "The ransomware self-deletes after execution."
+              },
+              {
+                "technique_name": "Impair Defenses: Disable or Modify Tools",
+                "technique_id": "T1562.001",
+                "technique_details": "Disables Windows Defender (if it is running)."
+              }
+            ]
+          },
+          {
+            "tactic_name": "Discovery",
+            "tactic_id": "TA0007",
+            "techniques": [
+              {
+                "technique_name": "File and Directory Discovery",
+                "technique_id": "T1083",
+                "technique_details": "The ransomware enumerates directories to encrypt files."
+              }
+            ]
+          },
+          {
+            "tactic_name": "Impact",
+            "tactic_id": "TA0040",
+            "techniques": [
+              {
+                "technique_name": "Data Encrypted for Impact",
+                "technique_id": "T1486",
+                "technique_details": "The ransomware uses data encryption to extort the victim."
+              }
+            ]
+          }
+        ],
+        "vulnerabilities": [],
+        "tools": {
+          "CredentialTheft": [
+            "Mimikatz"
+          ],
+          "DiscoveryEnum": [
+            "Advanced IP Scanner",
+            "PingCastle",
+            "SoftPerfect NetScan"
+          ]
+        },
+        "locations": [
+          {
+            "fqdn": "dragonforxxbp3awc7mzs5dkswrua3znqyx5roefmi4smjrsdi22xwqd.onion",
+            "title": "DragonForce | Leaks",
+            "slug": "http://dragonforxxbp3awc7mzs5dkswrua3znqyx5roefmi4smjrsdi22xwqd.onion",
+            "type": "Files",
+            "available": true
+          },
+          {
+            "fqdn": "3pktcrcbmssvrnwe5skburdwe2h3v6ibdnn5kbjqihsg6eu6s6b7ryqd.onion",
+            "title": "DragonForce | Recovery",
+            "slug": "http://3pktcrcbmssvrnwe5skburdwe2h3v6ibdnn5kbjqihsg6eu6s6b7ryqd.onion",
+            "type": "DLS",
+            "available": true
+          },
+          {
+            "fqdn": "z3wqggtxft7id3ibr7srivv5gjof5fwg76slewnzwwakjuf3nlhukdid.onion",
+            "title": "DragonForce | Blog",
+            "slug": "http://z3wqggtxft7id3ibr7srivv5gjof5fwg76slewnzwwakjuf3nlhukdid.onion/blog",
+            "type": "DLS",
+            "available": false
+          }
+        ],
+        "has_negotiations": true,
+        "negotiation_count": 17,
+        "has_ransomnote": true,
+        "ransomnotes_count": 2,
+        "url": "https://www.ransomware.live/group/dragonforce"
+      }
+    },
+    "krybit": {
+      "fetched_at": "2026-07-22T19:46:11.877512+00:00",
+      "data": {
+        "client": "milton.ortega@scitum.com.mx",
+        "group": "krybit",
+        "description": "Krybit is an emerging RaaS group that launched in late March 2026, offering affiliates an 80/20 revenue split with support for Windows, Linux, ESXi, and NAS device encryption, and became notable for a public feud with rival group 0APT in which each breached and leaked the other's operator data.",
+        "added_date": "2026-04-03",
+        "victims": 80,
+        "firstseen": "2026-03-30T00:00:00+00:00",
+        "lastseen": "2026-07-22T14:57:23.037392+00:00",
+        "ttps": [],
+        "vulnerabilities": [],
+        "tools": {},
+        "locations": [
+          {
+            "fqdn": "krybieodq754vlwufrsuxaswxb5zpxyibaawmed2jaduoz2e5m56hmid.onion",
+            "title": "",
+            "slug": "http://krybieodq754vlwufrsuxaswxb5zpxyibaawmed2jaduoz2e5m56hmid.onion",
+            "type": "DLS",
+            "available": false
+          },
+          {
+            "fqdn": "krybitxdpxohsmjooeb3gbgpmdddreh6mnflzac6bnezz74b7yje67yd.onion",
+            "title": "",
+            "slug": "http://krybitxdpxohsmjooeb3gbgpmdddreh6mnflzac6bnezz74b7yje67yd.onion",
+            "type": "DLS",
+            "available": false
+          },
+          {
+            "fqdn": "krybitqsdzwmhnitvwuhvsntfgf2wrhxveyxroxpc44c6gkft2cqldyd.",
+            "title": "",
+            "slug": "http://krybitqsdzwmhnitvwuhvsntfgf2wrhxveyxroxpc44c6gkft2cqldyd",
+            "type": "DLS",
+            "available": false
+          },
+          {
+            "fqdn": "krybitqsdzwmhnitvwuhvsntfgf2wrhxveyxroxpc44c6gkft2cqldyd.onion",
+            "title": "",
+            "slug": "http://krybitqsdzwmhnitvwuhvsntfgf2wrhxveyxroxpc44c6gkft2cqldyd.onion",
+            "type": "DLS",
+            "available": false
+          },
+          {
+            "fqdn": "krybitx3fh5krdnhegyp2ob3lhizsaiadturtio3ginf7it5gsdgu2yd.onion",
+            "title": "",
+            "slug": "http://krybitx3fh5krdnhegyp2ob3lhizsaiadturtio3ginf7it5gsdgu2yd.onion",
+            "type": "DLS",
+            "available": false
+          }
+        ],
+        "has_negotiations": false,
+        "negotiation_count": 0,
+        "has_ransomnote": true,
+        "ransomnotes_count": 1,
+        "url": "https://www.ransomware.live/group/krybit"
+      }
+    },
+    "blacknevas": {
+      "fetched_at": "2026-07-22T19:51:34.130690+00:00",
+      "data": {
+        "client": "milton.ortega@scitum.com.mx",
+        "group": "blacknevas",
+        "description": "BlackNevas is a ransomware group first observed in November 2024, believed to be derived from the Trigona ransomware family, targeting telecommunications, manufacturing, medical, and legal industries primarily in Asia-Pacific, the UK, Italy, and Lithuania using double-extortion with a dual AES/RSA encryption scheme.",
+        "added_date": "2025-08-06",
+        "victims": 36,
+        "firstseen": "2023-04-24T06:01:00+00:00",
+        "lastseen": "2026-07-22T19:21:10+00:00",
+        "ttps": [],
+        "vulnerabilities": [],
+        "tools": {},
+        "locations": [
+          {
+            "fqdn": "ctyfftrjgtwdjzlgqh4avbd35sqrs6tde4oyam2ufbjch6oqpqtkdtid.onion",
+            "title": "DLS",
+            "slug": "http://ctyfftrjgtwdjzlgqh4avbd35sqrs6tde4oyam2ufbjch6oqpqtkdtid.onion/publications",
+            "type": "DLS",
+            "available": true
+          }
+        ],
+        "has_negotiations": false,
+        "negotiation_count": 0,
+        "has_ransomnote": false,
+        "ransomnotes_count": 0,
+        "url": "https://www.ransomware.live/group/blacknevas"
+      }
+    },
+    "nova": {
+      "fetched_at": "2026-07-22T19:51:41.870188+00:00",
+      "data": {
+        "client": "milton.ortega@scitum.com.mx",
+        "group": "nova",
+        "description": "Nova (formerly RALord) is a ransomware-as-a-service (RaaS) group that encrypts victims’files and uses double-extortion tactics to pressure organizations into paying for decryption and data non-disclosure.",
+        "added_date": "2025-04-28",
+        "victims": 175,
+        "firstseen": "2025-03-22T00:00:00+00:00",
+        "lastseen": "2026-07-22T19:30:08.372707+00:00",
+        "ttps": [],
+        "vulnerabilities": [],
+        "tools": {},
+        "locations": [
+          {
+            "fqdn": "novaxtychr6ohlc4zr5its73p6i7unpuhpwoodtzrg2y4w4seytatlid.onion",
+            "title": "Nova Blog",
+            "slug": "http://novaxtychr6ohlc4zr5its73p6i7unpuhpwoodtzrg2y4w4seytatlid.onion",
+            "type": "DLS",
+            "available": false
+          },
+          {
+            "fqdn": "novav75eqkjoxct7xuhhwnjw5uaaxvznhtbykq6zal5x7tfevxzjyqyd.onion",
+            "title": "Update Links - Nova GBlog",
+            "slug": "http://novav75eqkjoxct7xuhhwnjw5uaaxvznhtbykq6zal5x7tfevxzjyqyd.onion",
+            "type": "DLS",
+            "available": true
+          },
+          {
+            "fqdn": "pifk3xu3vad6cuxsjll4qjomyaaaoyvnyqppro75pazadzctrrvpdnyd.onion",
+            "title": "Nova Blog",
+            "slug": "http://pifk3xu3vad6cuxsjll4qjomyaaaoyvnyqppro75pazadzctrrvpdnyd.onion",
+            "type": "Files",
+            "available": false
+          },
+          {
+            "fqdn": "leak7y2247fj7dbb35rpfyxuyaqtwbshiwxp6h35ttzlhrxmhvi4fead.onion",
+            "title": "",
+            "slug": "http://leak7y2247fj7dbb35rpfyxuyaqtwbshiwxp6h35ttzlhrxmhvi4fead.onion",
+            "type": "DLS",
+            "available": false
+          },
+          {
+            "fqdn": "novatd4577pzlvdyy42slydhrhru7fpcflbbxlajcmbfrgzyeis6d3id.onion",
+            "title": "",
+            "slug": "http://novatd4577pzlvdyy42slydhrhru7fpcflbbxlajcmbfrgzyeis6d3id.onion",
+            "type": "DLS",
+            "available": false
+          },
+          {
+            "fqdn": "novaoddh3vxylxqpsfdjprliknbzgbkv6nkazpzu3cvykrgpyzuywryd.onion",
+            "title": "",
+            "slug": "http://novaoddh3vxylxqpsfdjprliknbzgbkv6nkazpzu3cvykrgpyzuywryd.onion",
+            "type": "DLS",
+            "available": false
+          },
+          {
+            "fqdn": "novavdivko2zvtrvtllnq45lxhba2rfzp76qigb4nrliklem5au7czqd.onion",
+            "title": "Update Links - Nova GBlog",
+            "slug": "http://novavdivko2zvtrvtllnq45lxhba2rfzp76qigb4nrliklem5au7czqd.onion/",
+            "type": "DLS",
+            "available": true
+          },
+          {
+            "fqdn": "novadmrkp4vbk2padk5t6pbxolndceuc7hrcq4mjaoyed6nxsqiuzyyd.onion",
+            "title": "Nova Blog",
+            "slug": "http://novadmrkp4vbk2padk5t6pbxolndceuc7hrcq4mjaoyed6nxsqiuzyyd.onion",
+            "type": "DLS",
+            "available": true
+          },
+          {
+            "fqdn": "novag4k2te3mstt2xq5irywlpaw6edgkpiwgg4t2q7eecisj2qqtvbid.onion",
+            "title": "",
+            "slug": "http://novag4k2te3mstt2xq5irywlpaw6edgkpiwgg4t2q7eecisj2qqtvbid.onion",
+            "type": "DLS",
+            "available": false
+          }
+        ],
+        "has_negotiations": true,
+        "negotiation_count": 2,
+        "has_ransomnote": true,
+        "ransomnotes_count": 1,
+        "url": "https://www.ransomware.live/group/nova"
+      }
+    },
+    "kairos": {
+      "fetched_at": "2026-07-23T02:11:17.127833+00:00",
+      "data": {
+        "client": "milton.ortega@scitum.com.mx",
+        "group": "kairos",
+        "description": "Kairos is a data extortion group active since late 2024 that focuses solely on data theft with no encryption, primarily targeting small-to-mid-sized organizations in healthcare, manufacturing, and business services in the US, purchasing initial access from brokers and demanding Bitcoin payments.",
+        "added_date": null,
+        "victims": 90,
+        "firstseen": "2024-06-26T00:00:00+00:00",
+        "lastseen": "2026-07-22T00:00:00+00:00",
+        "ttps": [],
+        "vulnerabilities": [],
+        "tools": {},
+        "locations": [
+          {
+            "fqdn": "erqnacjmdy3obvevyol7qhazkwkv57dwqvye5v46k5bcujtfa6sduad.onion",
+            "title": "",
+            "slug": "http://erqnacjmdy3obvevyol7qhazkwkv57dwqvye5v46k5bcujtfa6sduad.onion",
+            "type": "DLS",
+            "available": false
+          },
+          {
+            "fqdn": "kairosgeuzkzz3ajntqcyxl3ib36szz3mg62mb3zbui33pbk3uzo4qqd.onion",
+            "title": "Kairos",
+            "slug": "http://kairosgeuzkzz3ajntqcyxl3ib36szz3mg62mb3zbui33pbk3uzo4qqd.onion",
+            "type": "DLS",
+            "available": true
+          },
+          {
+            "fqdn": "nerqnacjmdy3obvevyol7qhazkwkv57dwqvye5v46k5bcujtfa6sduad.onion",
+            "title": "SBU",
+            "slug": "http://nerqnacjmdy3obvevyol7qhazkwkv57dwqvye5v46k5bcujtfa6sduad.onion",
+            "type": "DLS",
+            "available": false
+          }
+        ],
+        "has_negotiations": true,
+        "negotiation_count": 1,
+        "has_ransomnote": true,
+        "ransomnotes_count": 1,
+        "url": "https://www.ransomware.live/group/kairos"
+      }
+    }
+  },
+  "meta": {
+    "iocs_summary": {
+      "fetched_at": "2026-07-22T19:45:51.883514+00:00",
+      "data": {
+        "0apt": {
+          "md5": 4
+        },
+        "ailock": {
+          "md5": 1,
+          "sha256": 1
+        },
+        "akira": {
+          "md5": 321,
+          "sha256": 37,
+          "btc": 7
+        },
+        "anubis": {
+          "twitter": 1,
+          "md5": 25,
+          "ip": 4
+        },
+        "arkana": {
+          "session": 1
+        },
+        "bashe": {
+          "ip": 1
+        },
+        "beast": {
+          "mail": 8,
+          "sha256": 1,
+          "tox": 1,
+          "ip": 1,
+          "session": 1
+        },
+        "benzona": {
+          "pgp": 9,
+          "md5": 1,
+          "sha256": 1,
+          "tox": 1,
+          "ip": 1
+        },
+        "bert": {
+          "md5": 9,
+          "ip": 2
+        },
+        "bianlian": {
+          "md5": 8,
+          "ip": 191
+        },
+        "blacklock": {
+          "md5": 1
+        },
+        "blacknevas": {
+          "sha256": 28
+        },
+        "blackshrantac": {
+          "tox": 1
+        },
+        "blacksuit": {
+          "ip": 1
+        },
+        "bluebox": {
+          "tox": 1,
+          "email": 1
+        },
+        "bluelocker": {
+          "sha256": 4,
+          "tox": 1
+        },
+        "bqtlock": {
+          "twitter": 1,
+          "telegram": 5,
+          "xmr": 1
+        },
+        "braincipher": {
+          "md5": 12,
+          "email": 3
+        },
+        "cactus": {
+          "md5": 51
+        },
+        "cephalus": {
+          "ip": 1
+        },
+        "chaos": {
+          "md5": 3,
+          "sha256": 3,
+          "ip": 3
+        },
+        "cloak": {
+          "md5": 1
+        },
+        "crazyhunter": {
+          "telegram": 2,
+          "tox": 1
+        },
+        "cry0": {
+          "tox": 1,
+          "ip": 1
+        },
+        "crypto24": {
+          "ip": 1,
+          "email": 1
+        },
+        "d4rk4rmy": {
+          "tox": 2
+        },
+        "datacarry": {
+          "md5": 1,
+          "sha256": 2,
+          "ip": 2,
+          "session": 1,
+          "email": 1
+        },
+        "devman": {
+          "twitter": 1,
+          "tox": 1,
+          "ip": 3
+        },
+        "dragonforce": {
+          "md5": 22,
+          "tox": 1,
+          "ip": 1
+        },
+        "exitium": {
+          "tox": 1
+        },
+        "fog": {
+          "md5": 54
+        },
+        "frag": {
+          "email": 2
+        },
+        "gdlockrsec": {
+          "twitter": 1,
+          "tox": 1
+        },
+        "ghostsec": {
+          "url": 5,
+          "sha256": 4,
+          "ip": 1
+        },
+        "global": {
+          "session": 1
+        },
+        "gunra": {
+          "md5": 4,
+          "ip": 1
+        },
+        "hellokitty": {
+          "md5": 54
+        },
+        "insomnia": {
+          "tox": 1
+        },
+        "interlock": {
+          "md5": 9,
+          "url": 4,
+          "sha256": 3,
+          "ip": 3
+        },
+        "j": {
+          "md5": 6
+        },
+        "kawa4096": {
+          "sha256": 1,
+          "tox": 1,
+          "email": 1
+        },
+        "lapsus$": {
+          "sha256": 1
+        },
+        "lockbit3": {
+          "md5": 16,
+          "ip": 10
+        },
+        "lockbit5": {
+          "md5": 13
+        },
+        "lunalock": {
+          "email": 1
+        },
+        "lynx": {
+          "md5": 19
+        },
+        "medusa": {
+          "telegram": 1,
+          "md5": 18,
+          "tox": 3,
+          "email": 2
+        },
+        "medusalocker": {
+          "sha256": 19,
+          "tox": 1
+        },
+        "minteye": {
+          "tox": 1
+        },
+        "ms13089": {
+          "email": 1
+        },
+        "nightspire": {
+          "telegram": 2,
+          "sha256": 2,
+          "tox": 1,
+          "email": 4
+        },
+        "nitrogen": {
+          "md5": 6,
+          "tox": 4
+        },
+        "nova": {
+          "tox": 1,
+          "session": 1
+        },
+        "obscura": {
+          "sha256": 1,
+          "tox": 1
+        },
+        "payload": {
+          "sha256": 1
+        },
+        "payoutsking": {
+          "tox": 1
+        },
+        "pear": {
+          "tox": 1,
+          "email": 1
+        },
+        "promptlock": {
+          "sha1": 6
+        },
+        "qilin": {
+          "md5": 60,
+          "ip": 8,
+          "ftp": 2
+        },
+        "radar": {
+          "tox": 1,
+          "session": 1
+        },
+        "ralord": {
+          "md5": 2,
+          "tox": 2,
+          "ip": 1,
+          "session": 1
+        },
+        "raworld": {
+          "md5": 210,
+          "tox": 1,
+          "ip": 1
+        },
+        "rhysida": {
+          "md5": 28
+        },
+        "satanlockv2": {
+          "tox": 1
+        },
+        "securotrop": {
+          "tox": 1
+        },
+        "shinyhunters": {
+          "telegram": 4,
+          "email": 1
+        },
+        "shinysp1d3r": {
+          "sha256": 3
+        },
+        "sicarii": {
+          "pgp": 18,
+          "tox": 1
+        },
+        "skira": {
+          "session": 1
+        },
+        "sorry": {
+          "sha256": 2,
+          "ip": 15
+        },
+        "teamxxx": {
+          "ip": 1
+        },
+        "termite": {
+          "sha-1": 2,
+          "sha-256": 2,
+          "md5": 2,
+          "ip": 2
+        },
+        "thegentlemen": {
+          "tox": 1,
+          "sha1": 4
+        },
+        "thegreenbloodgroup": {
+          "tox": 1,
+          "email": 1
+        },
+        "toufan": {
+          "tox": 1
+        },
+        "trigona": {
+          "md5": 117
+        },
+        "vanhelsing": {
+          "md5": 7,
+          "tox": 1,
+          "ip": 2,
+          "btc": 2
+        },
+        "warlock": {
+          "sha256": 1,
+          "tox": 3
+        },
+        "weyhro": {
+          "tox": 1,
+          "ip": 2
+        }
+      }
+    },
+    "yara_summary": {
+      "fetched_at": "2026-07-22T19:45:57.396400+00:00",
+      "data": {
+        "0apt": 1,
+        "0mega": 1,
+        "8base": 1,
+        "alp-001": 1,
+        "abrahams_ax": 1,
+        "ailock": 1,
+        "akira": 1,
+        "alphv": 1,
+        "auditteam": 1,
+        "avoslocker": 1,
+        "babuk": 1,
+        "beast": 1,
+        "bianlian": 1,
+        "bitpaymer": 1,
+        "blackbyte": 1,
+        "blackcat": 1,
+        "blackmatter": 1,
+        "blackbasta": 1,
+        "blacksuit": 1,
+        "bluelocker": 1,
+        "braincipher": 1,
+        "cmdorganization": 1,
+        "cactus": 1,
+        "chaos": 1,
+        "cobaltstrike": 1,
+        "contfr": 1,
+        "conti": 1,
+        "darkside": 1,
+        "dharma": 1,
+        "esxiarg": 1,
+        "eldorado": 1,
+        "enmity": 1,
+        "gdlockersec": 1,
+        "globeimposter": 1,
+        "grief": 1,
+        "hellokitty": 1,
+        "hive": 1,
+        "hsharada": 1,
+        "imncrew": 1,
+        "incransom": 1,
+        "j": 1,
+        "lockbit3": 1,
+        "loki": 1,
+        "lorenz": 1,
+        "losttrust": 1,
+        "mallox": 1,
+        "maze": 1,
+        "medusa": 1,
+        "medusalocker": 1,
+        "monti": 1,
+        "mount-locker": 1,
+        "netwalker": 1,
+        "noescape": 1,
+        "nokoyawa": 1,
+        "phobos": 1,
+        "play": 1,
+        "proton": 1,
+        "proxima": 1,
+        "qilin": 1,
+        "quantum": 1,
+        "rcru64": 1,
+        "ransomhouse": 1,
+        "rhysida": 1,
+        "royal": 1,
+        "runsomewares": 1,
+        "sensayq": 1,
+        "shadowbyt3$": 1,
+        "shinysp1d3r": 1,
+        "silentransomgroup": 1,
+        "snatch": 1,
+        "suncrypt": 1,
+        "thanos": 1,
+        "timc": 1,
+        "trinity": 1,
+        "tuga": 1,
+        "unibovwood": 1,
+        "valencialeaks": 1,
+        "vanhelsing": 1,
+        "voidcrypt": 1,
+        "zeppelin": 1,
+        "agl0bgvycg": 1,
+        "abyss": 1,
+        "adminlocker": 1,
+        "againstthewest": 1,
+        "ako": 1,
+        "alphalocker": 1,
+        "anubis": 1,
+        "apos": 1,
+        "apt73": 1,
+        "arcusmedia": 1,
+        "argonauts": 1,
+        "arkana": 1,
+        "arvinclub": 1,
+        "atomsilo": 1,
+        "aurora": 1,
+        "avaddon": 1,
+        "avos": 1,
+        "aware": 1,
+        "aztroteam": 1,
+        "babuk2": 1,
+        "babyduck": 1,
+        "benzona": 1,
+        "bert": 1,
+        "blacklock": 1,
+        "blacknevas": 1,
+        "blackout": 1,
+        "blackshadow": 1,
+        "blackshrantac": 1,
+        "blacktor": 1,
+        "blackwater": 1,
+        "bluebox": 1,
+        "bluesky": 1,
+        "bonacigroup": 1,
+        "bqtlock": 1,
+        "bravox": 1,
+        "brotherhood": 1,
+        "cephalus": 1,
+        "cheers": 1,
+        "chilelocker": 1,
+        "chort": 1,
+        "cicada3301": 1,
+        "ciphbit": 1,
+        "cipherforce": 1,
+        "cloak": 1,
+        "clop": 1,
+        "coinbasecartel": 1,
+        "cooming": 1,
+        "crazyhunter": 1,
+        "crosslock": 1,
+        "cry0": 1,
+        "crylock": 1,
+        "cryp70n1c0d3": 1,
+        "cryptbb": 1,
+        "cryptnet": 1,
+        "crypto24": 1,
+        "cuba": 1,
+        "cyclops": 1,
+        "d4rk4rmy": 1,
+        "dan0n": 1,
+        "dagonlocker": 1,
+        "daixin": 1,
+        "darkangels": 1,
+        "darkbit": 1,
+        "darkleakmarket": 1,
+        "darkpower": 1,
+        "darkrace": 1,
+        "darkvault": 1,
+        "datacarry": 1,
+        "datakeeper": 1,
+        "dataleak": 1,
+        "desolator": 1,
+        "devman": 1,
+        "diavol": 1,
+        "direwolf": 1,
+        "dispossessor": 1,
+        "donex": 1,
+        "donutleaks": 1,
+        "doppelpaymer": 1,
+        "dragonforce": 1,
+        "dragonransomware": 1,
+        "dread": 1,
+        "dunghill": 1,
+        "ech0raix": 1,
+        "embargo": 1,
+        "entropy": 1,
+        "ep918": 1,
+        "esxiargs": 1,
+        "everest": 1,
+        "exitium": 1,
+        "exorcist": 1,
+        "fletchen": 1,
+        "flocker": 1,
+        "fog": 1,
+        "frag": 1,
+        "freecivilian": 1,
+        "fsteam": 1,
+        "fulcrumsec": 1,
+        "funksec": 1,
+        "genesis": 1,
+        "global": 1,
+        "groove": 1,
+        "gunra": 1,
+        "hades": 1,
+        "handala": 1,
+        "haron": 1,
+        "hellcat": 1,
+        "helldown": 1,
+        "hellogookie": 1,
+        "holyghost": 1,
+        "hotarus": 1,
+        "hunters": 1,
+        "icefire": 1,
+        "insane": 1,
+        "insomnia": 1,
+        "interlock": 1,
+        "kairos": 1,
+        "karakurt": 1,
+        "karma": 1,
+        "kawa4096": 1,
+        "kazu": 1,
+        "kelvinsecurity": 1,
+        "killsec": 1,
+        "kittykatkrew": 1,
+        "knight": 1,
+        "kraken": 1,
+        "krybit": 1,
+        "kryptos": 1,
+        "kyber": 1,
+        "la_piovra": 1,
+        "lamashtu": 1,
+        "lapsus$": 1,
+        "leaktheanalyst": 1,
+        "lilith": 1,
+        "linkc": 1,
+        "lockbit": 1,
+        "lockbit2": 1,
+        "lockbit3_fs": 1,
+        "lockbit5": 1,
+        "lockdata": 1,
+        "lolnek": 1,
+        "lunalock": 1,
+        "lv": 1,
+        "lynx": 1,
+        "m3rx": 1,
+        "madcat": 1,
+        "madliberator": 1,
+        "malas": 1,
+        "malekteam": 1,
+        "mamona": 1,
+        "marketo": 1,
+        "mbc": 1,
+        "meow": 1,
+        "metaencryptor": 1,
+        "midas": 1,
+        "mindware": 1,
+        "minteye": 1,
+        "mnt6": 1,
+        "mogilevich": 1,
+        "moneymessage": 1,
+        "morpheus": 1,
+        "mosesstaff": 1,
+        "mountlocker": 1,
+        "ms13089": 1,
+        "mydecryptor": 1,
+        "n3tworm": 1,
+        "nasirsecurity": 1,
+        "nefilim": 1,
+        "nemty": 1,
+        "netrunner": 1,
+        "nevada": 1,
+        "nightsky": 1,
+        "nightspire": 1,
+        "nitrogen": 1,
+        "noname": 1,
+        "nova": 1,
+        "obscura": 1,
+        "onepercent": 1,
+        "onyx": 1,
+        "orca": 1,
+        "orion": 1,
+        "osiris": 1,
+        "pandora": 1,
+        "pay2key": 1,
+        "payload": 1,
+        "payloadbin": 1,
+        "payoutsking": 1,
+        "pear": 1,
+        "playboy": 1,
+        "projectrelic": 1,
+        "prolock": 1,
+        "prometheus": 1,
+        "promptlock": 1,
+        "pysa": 1,
+        "qiulong": 1,
+        "qlocker": 1,
+        "rabbithole": 1,
+        "radar": 1,
+        "radiant": 1,
+        "ragnarlocker": 1,
+        "ragnarok": 1,
+        "ralord": 1,
+        "ramp": 1,
+        "rancoz": 1,
+        "ranion": 1,
+        "ransombay": 1,
+        "ransomcartel": 1,
+        "ransomcortex": 1,
+        "ransomed": 1,
+        "ransomexx": 1,
+        "ransomhub": 1,
+        "ranstreet": 1,
+        "ranzy": 1,
+        "raworld": 1,
+        "raznatovic": 1,
+        "rebornvc": 1,
+        "redalert": 1,
+        "redransomware": 1,
+        "revil": 1,
+        "reynolds": 1,
+        "robinhood": 1,
+        "rook": 1,
+        "rransom": 1,
+        "sabbath": 1,
+        "safepay": 1,
+        "sarcoma": 1,
+        "satanlockv2": 1,
+        "secp0": 1,
+        "securotrop": 1,
+        "shadow": 1,
+        "shaoleaks": 1,
+        "shinyhunters": 1,
+        "sicarii": 1,
+        "siegedsec": 1,
+        "silent": 1,
+        "sinobi": 1,
+        "skira": 1,
+        "slug": 1,
+        "solidbit": 1,
+        "spacebears": 1,
+        "sparta": 1,
+        "spook": 1,
+        "stormous": 1,
+        "sugar": 1,
+        "synack": 1,
+        "teamxxx": 1,
+        "tengu": 1,
+        "termite": 1,
+        "thegentlemen": 1,
+        "thegreenbloodgroup": 1,
+        "threeam": 1,
+        "toufan": 1,
+        "tridentlocker": 1,
+        "trigona": 1,
+        "trisec": 1,
+        "u-bomb": 1,
+        "underground": 1,
+        "unknown": 1,
+        "unsafe": 1,
+        "vanirgroup": 1,
+        "vect": 1,
+        "vendetta": 1,
+        "vfokx": 1,
+        "vicesociety": 1,
+        "walocker": 1,
+        "wannacry": 1,
+        "warlock": 1,
+        "werewolves": 1,
+        "weyhro": 1,
+        "worldleaks": 1,
+        "x001xs": 1,
+        "xinglocker": 1,
+        "xinof": 1,
+        "xp95": 1,
+        "yanluowang": 1,
+        "yurei": 1,
+        "zeon": 1,
+        "zerolockersec": 1,
+        "zerotolerance": 1
+      }
+    }
+  }
+}
