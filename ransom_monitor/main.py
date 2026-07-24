@@ -72,12 +72,25 @@ def select_new_victims(
     return list(reversed(new_victims)), victims_desc
 
 
+def _fetch_country_victims(
+    client: RansomwareLiveClient, code: str, victims_cache: dict[str, list[dict]]
+) -> list[dict]:
+    """Trae víctimas de un país, reutilizando el resultado si ya se pidió en
+    esta misma corrida — así un país que tiene su propio feed Y participa en
+    'general' no se consulta dos veces."""
+    if code not in victims_cache:
+        victims_cache[code] = client.victims_by_country(code)
+    return victims_cache[code]
+
+
 def process_feed(
     feed: Feed,
     client: RansomwareLiveClient,
     state: dict,
     settings: dict,
     group_cache: GroupIntelCache | None,
+    victims_cache: dict[str, list[dict]],
+    latam_codes: list[str],
     *,
     dry_run: bool,
 ) -> None:
@@ -87,7 +100,14 @@ def process_feed(
 
     logger.info("[%s] consultando ransomware.live...", feed.key)
     try:
-        victims = client.recent_victims() if feed.is_global else client.victims_by_country(feed.code)
+        if feed.is_global:
+            victims = client.recent_victims()
+        elif feed.is_general:
+            victims = []
+            for code in latam_codes:
+                victims.extend(_fetch_country_victims(client, code, victims_cache))
+        else:
+            victims = _fetch_country_victims(client, feed.code, victims_cache)
     except RansomwareLiveError as exc:
         logger.error("[%s] error consultando la API: %s", feed.key, exc)
         return
@@ -127,7 +147,7 @@ def process_feed(
             victim,
             feed_name=feed.name,
             country_code=feed.code,
-            is_global=feed.is_global,
+            multi_country=feed.is_global or feed.is_general,
             group_intel=group_intel,
         )
         if dry_run:
@@ -157,6 +177,7 @@ def process_feed(
             _pause()
             try:
                 post_card(feed.webhook_url, notice, timeout=teams_cfg["timeout_seconds"])
+                logger.info("[%s] aviso de %d omitidas publicado en Teams", feed.key, omitted_total)
             except TeamsPostError as exc:
                 logger.error("[%s] fallo publicando aviso de omitidas: %s", feed.key, exc)
 
@@ -173,7 +194,7 @@ def build_arg_parser() -> argparse.ArgumentParser:
         "--dry-run", action="store_true", help="No publica en Teams ni actualiza el estado; solo muestra qué haría"
     )
     parser.add_argument(
-        "--feed", help="Procesar solo este feed ('global' o código de país, p.ej. MX)"
+        "--feed", help="Procesar solo este feed ('global', 'general' o código de país, p.ej. MX)"
     )
     parser.add_argument(
         "--reset-state", action="store_true", help="Ignora el estado previo (recalcula todo como primera corrida)"
@@ -246,7 +267,8 @@ def main(argv: list[str] | None = None) -> int:
             # Solo se resetea el feed pedido — si tocáramos todo el dict,
             # save_state luego sobrescribiría el checkpoint de los demás
             # feeds (que ni se procesan en esta corrida) con la nada.
-            reset_key = "global" if args.feed.lower() == "global" else args.feed.upper()
+            lowered = args.feed.lower()
+            reset_key = lowered if lowered in ("global", "general") else args.feed.upper()
             state.pop(reset_key, None)
         else:
             state = {}
@@ -264,8 +286,14 @@ def main(argv: list[str] | None = None) -> int:
         logger.warning("No hay feeds habilitados que coincidan con los criterios — nada que hacer")
         return 0
 
+    # Compartida entre feeds de país y el feed 'general' dentro de esta misma
+    # corrida: si un país tiene su propio feed Y participa en 'general', solo
+    # se consulta una vez.
+    victims_cache: dict[str, list[dict]] = {}
+    latam_codes = [f.code for f in cfg.country_feeds]
+
     for feed in feeds:
-        process_feed(feed, client, state, settings, group_cache, dry_run=args.dry_run)
+        process_feed(feed, client, state, settings, group_cache, victims_cache, latam_codes, dry_run=args.dry_run)
         if not args.dry_run:
             save_state(state_path, state)
             if group_cache:

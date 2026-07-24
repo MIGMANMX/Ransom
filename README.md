@@ -2,9 +2,23 @@
 
 Consulta la API PRO de [ransomware.live](https://www.ransomware.live/) y publica
 en Microsoft Teams (vía webhook, como Adaptive Cards) las víctimas de
-ransomware más recientes, con foco en países de LATAM, más un feed global.
-Cada víctima nueva se publica en **su propia tarjeta** (no se agrupan varias
-víctimas en un mismo mensaje).
+ransomware más recientes. Cada víctima nueva se publica en **su propia
+tarjeta** (no se agrupan varias víctimas en un mismo mensaje).
+
+Hay tres tipos de feed, cada uno con su propio webhook/canal:
+
+- **Por país** (`config/countries/<código>.yaml`): un canal por país, solo
+  víctimas de ese país.
+- **General** (`config/general.yaml`): un solo canal con las víctimas de
+  **todos** los países LATAM configurados en `config/countries/` (33 países
+  actualmente), sin importar si cada uno tiene además su propio canal
+  individual habilitado.
+- **Global** (`config/global.yaml`): un solo canal con las víctimas más
+  recientes a **nivel mundial**, sin filtrar por región.
+
+Estos tres tipos no son excluyentes: la misma víctima puede terminar
+publicada en su canal de país, en General y en Global si los tres están
+habilitados — es intencional, cada canal sirve una audiencia distinta.
 
 ## Cómo funciona
 
@@ -39,6 +53,11 @@ necesario.
 - Feed por **país**: `GET /victims/?country=XX` (todo el histórico conocido
   de ese país; el script filtra localmente qué es "nuevo" desde la última
   corrida usando el checkpoint guardado).
+- Feed **general**: la unión de `GET /victims/?country=XX` de los 33 países
+  LATAM configurados. Dentro de una misma corrida, si un país ya se consultó
+  para su propio feed, **no se vuelve a pedir** para General (se comparte el
+  resultado) — así tener los 33 países individuales Y el feed general
+  habilitados no duplica peticiones.
 - Enriquecimiento opcional por víctima: `GET /group/<nombre>` (perfil del
   grupo). Se cachea por grupo (no por víctima) durante
   `enrichment.group_cache_ttl_hours` (24h por defecto), así que en la
@@ -56,8 +75,10 @@ del sitio de filtración y link permanente a la ficha en ransomware.live.
 Del grupo (si `enrichment.group_intel: true`): descripción del grupo,
 víctimas históricas totales, fecha de primera/última actividad conocida,
 técnicas MITRE ATT&CK documentadas (conteo), CVEs conocidas que explota
-(ordenadas por severidad CVSS) y si hay chats de negociación o notas de
-rescate filtradas disponibles.
+(ordenadas por severidad CVSS), si hay chats de negociación o notas de
+rescate filtradas disponibles, conteo de IOCs publicados (`/iocs`) y de
+reglas YARA (`/yara`) — ambos con un link al perfil público del grupo en
+ransomware.live para ver el detalle completo.
 
 ### Otros datos del API que **no** se están usando todavía
 
@@ -68,12 +89,7 @@ Si quieres, puedo sumar cualquiera de estos:
   cacheado igual que el perfil de grupo.
 - **`/stats`** — contador global (víctimas/grupos/press rastreados y última
   actualización). Serviría como pie de página del feed global.
-- **`/iocs/<grupo>`** — indicadores de compromiso (IPs, hashes, dominios,
-  wallets BTC) del grupo. Se podría agregar un link "ver IOCs" en vez de
-  volcarlos en la tarjeta (pueden ser largos).
-- **`/yara/<grupo>`** — si hay reglas YARA publicadas para el grupo (flag +
-  link).
-- **`locations`** dentro de `/group/<nombre>`** — URLs de los sitios de
+- **`locations`** dentro de `/group/<nombre>` — URLs de los sitios de
   filtración (.onion). Las omití a propósito para no promover el acceso a
   esos sitios desde el canal de Teams; puedo agregarlas como texto plano si
   las necesitas para investigación.
@@ -100,20 +116,24 @@ pip install -r requirements.txt
 
    ```
    TEAMS_WEBHOOK_GLOBAL=https://...
+   TEAMS_WEBHOOK_GENERAL=https://...
    TEAMS_WEBHOOK_MX=https://...
    TEAMS_WEBHOOK_CO=https://...
    ```
 
-3. **Habilitar países**: cada país tiene su propio archivo en
-   `config/countries/<código>.yaml`. Por defecto solo México (`mx.yaml`) y el
-   feed `global.yaml` están `enabled: true`. Para activar otro país, edita su
-   archivo y pon `enabled: true` (y asegúrate de tener su variable de webhook
-   en `.env`). Feeds sin webhook configurado se omiten automáticamente aunque
-   estén `enabled: true`.
+3. **Habilitar feeds**: cada país tiene su propio archivo en
+   `config/countries/<código>.yaml`; el agregado LATAM está en
+   `config/general.yaml`; el mundial en `config/global.yaml`. Por defecto
+   están `enabled: true` México (`mx.yaml`), `global.yaml` y `general.yaml`;
+   el resto de países arranca en `enabled: false`. Para activar otro país,
+   edita su archivo y pon `enabled: true` (y asegúrate de tener su variable
+   de webhook en `.env`). Feeds sin webhook configurado se omiten
+   automáticamente aunque estén `enabled: true` — así que `general.yaml`
+   simplemente no hace nada hasta que le pongas `TEAMS_WEBHOOK_GENERAL`.
 
 4. Ajustes finos (delays, reintentos, cuántas víctimas por corrida, backfill
-   inicial, enriquecimiento de grupo) están en `config/settings.yaml` y en
-   cada archivo de país/`global.yaml`.
+   inicial, enriquecimiento de grupo, orden de los países) están en
+   `config/settings.yaml` y en cada archivo de país/`global.yaml`/`general.yaml`.
 
 ## Uso
 
@@ -127,6 +147,7 @@ python -m ransom_monitor.main
 # Solo un feed
 python -m ransom_monitor.main --feed MX
 python -m ransom_monitor.main --feed global
+python -m ransom_monitor.main --feed general
 
 # Ignorar el estado guardado (recalcula todo como primera corrida)
 python -m ransom_monitor.main --reset-state

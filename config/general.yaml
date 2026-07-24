@@ -1,0 +1,9 @@
+# Feed general: agrega en UN solo canal todas las víctimas de los países
+# LATAM configurados en config/countries/ (los 33 del listado, sin importar
+# si cada uno tiene su propio canal individual habilitado). Complementa a
+# global.yaml (que es a nivel mundial, sin filtrar por región) y a los
+# feeds de país (un canal por país).
+enabled: true
+name: "General"
+webhook_url_env: "TEAMS_WEBHOOK_GENERAL"
+max_items_per_run: 20

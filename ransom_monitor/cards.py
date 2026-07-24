@@ -197,21 +197,21 @@ def build_victim_card(
     *,
     feed_name: str,
     country_code: str | None = None,
-    is_global: bool = False,
+    multi_country: bool = False,
     group_intel: dict | None = None,
 ) -> dict:
     """Arma una Adaptive Card para UNA sola víctima.
 
-    En feeds de país el header muestra el nombre del feed + su bandera
-    (p. ej. "— México 🇲🇽"). En el feed global, que mezcla víctimas de
-    cualquier país, se muestra en cambio el país de ESA víctima en particular
-    (p. ej. "— Global — Brasil").
+    En feeds de un solo país el header muestra el nombre del feed + su
+    bandera (p. ej. "— México 🇲🇽"). En feeds que mezclan víctimas de varios
+    países (Global, General) se muestra en cambio el país de ESA víctima en
+    particular (p. ej. "— Global — Brasil" / "— General — Colombia").
     """
     now = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
     name = victim.get("victim") or victim.get("website") or "Víctima desconocida"
 
-    if is_global:
-        header_text = f"🚨 Nueva víctima de ransomware 🚨 — Global — {country_name_es(victim.get('country'))}"
+    if multi_country:
+        header_text = f"🚨 Nueva víctima de ransomware 🚨 — {feed_name} — {country_name_es(victim.get('country'))}"
     else:
         header_text = f"🚨 Nueva víctima de ransomware 🚨 — {feed_name} {_flag_emoji(country_code)}"
 

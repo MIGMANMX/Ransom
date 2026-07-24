@@ -15,12 +15,13 @@ import yaml
 
 @dataclass
 class Feed:
-    key: str  # "global" o código de país, p.ej. "MX"
+    key: str  # "global", "general" o código de país, p.ej. "MX"
     name: str
     enabled: bool
     webhook_url: Optional[str]
     max_items_per_run: int
     is_global: bool
+    is_general: bool = False  # agrega TODOS los países de config/countries/ en un solo canal
     code: Optional[str] = None  # solo para feeds de país
 
 
@@ -57,6 +58,19 @@ def load_global_feed(config_dir: Path) -> Feed:
     )
 
 
+def load_general_feed(config_dir: Path) -> Feed:
+    raw = _read_yaml(config_dir / "general.yaml")
+    return Feed(
+        key="general",
+        name=raw.get("name", "General"),
+        enabled=bool(raw.get("enabled", True)),
+        webhook_url=_resolve_webhook(raw, "general"),
+        max_items_per_run=int(raw.get("max_items_per_run", 20)),
+        is_global=False,
+        is_general=True,
+    )
+
+
 def load_country_feeds(config_dir: Path, order: Optional[list[str]] = None) -> list[Feed]:
     countries_dir = config_dir / "countries"
     feeds = []
@@ -89,15 +103,17 @@ class AppConfig:
         self.config_dir = config_dir
         self.settings = load_settings(config_dir)
         self.global_feed = load_global_feed(config_dir)
+        self.general_feed = load_general_feed(config_dir)
         country_order = self.settings.get("countries", {}).get("order")
         self.country_feeds = load_country_feeds(config_dir, country_order)
 
     def all_feeds(self) -> list[Feed]:
-        return [self.global_feed, *self.country_feeds]
+        return [self.global_feed, self.general_feed, *self.country_feeds]
 
     def enabled_feeds(self, only_key: Optional[str] = None) -> list[Feed]:
         feeds = self.all_feeds()
         if only_key:
-            only_key = "global" if only_key.lower() == "global" else only_key.upper()
+            lowered = only_key.lower()
+            only_key = lowered if lowered in ("global", "general") else only_key.upper()
             feeds = [f for f in feeds if f.key == only_key]
         return [f for f in feeds if f.enabled]
